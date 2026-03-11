@@ -2,6 +2,20 @@ import requests
 from telegram import Update, ReplyKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters
 
+from flask import Flask
+import threading
+
+app_web = Flask(__name__)
+
+@app_web.route("/")
+def home():
+    return "Bot ishlayapti"
+
+def run_web():
+    app_web.run(host="0.0.0.0", port=10000)
+
+threading.Thread(target=run_web).start()
+
 TOKEN = "7674225506:AAHExt6AzxkqeYxpzaWWJ68KMWbbZXc06wE"
 
 
@@ -149,3 +163,4 @@ app.add_handler(MessageHandler(filters.Regex("🏆 TOP 5"),top5))
 print("Bot ishga tushdi...")
 
 app.run_polling()
+
